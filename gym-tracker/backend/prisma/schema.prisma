@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String
+  displayName  String?
+  weightUnit   String        @default("kg")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  sets         WorkoutSet[]
+  sessions     Session[]
+}
+
+// Catálogo sincronizado do wger (espelho do ExerciseBase)
+model Exercise {
+  id             String            @id @default(uuid())
+  wgerUuid       String            @unique
+  name           String
+  nameEn         String?
+  categoryId     Int
+  category       ExerciseCategory  @relation(fields: [categoryId], references: [id])
+  variationGroup String?
+  imageUrl       String?
+  licenseName    String?
+  licenseAuthor  String?
+  isActive       Boolean           @default(true)
+  lastSyncedAt   DateTime          @default(now())
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  equipment      Equipment[]
+  muscles        Muscle[]
+  sets           WorkoutSet[]
+
+  @@index([name])
+}
+
+model Equipment {
+  id        Int        @id
+  name      String
+  slug      String     @unique
+  exercises Exercise[]
+}
+
+model Muscle {
+  id        Int        @id
+  name      String
+  nameEn    String?
+  isFront   Boolean    @default(true)
+  exercises Exercise[]
+}
+
+model ExerciseCategory {
+  id        Int        @id
+  name      String
+  slug      String     @unique
+  exercises Exercise[]
+}
+
+model Session {
+  id        String       @id @default(uuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  startedAt DateTime     @default(now())
+  note      String?
+  createdAt DateTime     @default(now())
+  sets      WorkoutSet[]
+}
+
+model WorkoutSet {
+  id           String    @id @default(uuid())
+  clientUuid   String
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exerciseId   String
+  exercise     Exercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  sessionId    String?
+  session      Session?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  weightKg     Decimal
+  reps         Int
+  rpe          Decimal?
+  notes        String?
+  isBodyweight Boolean   @default(false)
+  performedAt  DateTime  @default(now())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, clientUuid])
+  @@index([userId, exerciseId, performedAt])
+  @@index([userId, performedAt])
+}
+
+model CatalogSyncState {
+  id             Int      @id @default(1)
+  lastSyncedAt   DateTime?
+  wgerVersion    String?
+  exercisesCount Int      @default(0)
+  updatedAt      DateTime @updatedAt
+}
