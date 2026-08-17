@@ -1,6 +1,6 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../shared/prisma/prisma.service';
 import { CreateSetsDto } from './dto/create-sets.dto';
 import { SetsService } from './sets.service';
 
@@ -18,6 +18,7 @@ interface ListArgs {
   where: {
     userId: string;
     exerciseId?: string;
+    isBodyweight?: boolean;
     performedAt?: { gte: Date; lte: Date };
   };
 }
@@ -165,6 +166,24 @@ describe('SetsService', () => {
     expect(listArgs?.where.performedAt?.gte).toEqual(
       new Date('2026-01-01T00:00:00Z'),
     );
+  });
+
+  it('filtra séries por isBodyweight', async () => {
+    let listArgs: ListArgs | undefined;
+    prismaMock.workoutSet.findMany.mockImplementation((args: ListArgs) => {
+      listArgs = args;
+      return Promise.resolve([]);
+    });
+    prismaMock.workoutSet.count.mockResolvedValue(0);
+
+    await service.list('user-1', { isBodyweight: true });
+    expect(listArgs?.where.isBodyweight).toBe(true);
+
+    await service.list('user-1', { isBodyweight: false });
+    expect(listArgs?.where.isBodyweight).toBe(false);
+
+    await service.list('user-1', {});
+    expect(listArgs?.where.isBodyweight).toBeUndefined();
   });
 
   it('remove apenas séries do próprio usuário', async () => {

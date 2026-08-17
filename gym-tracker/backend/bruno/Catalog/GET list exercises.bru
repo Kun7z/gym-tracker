@@ -1,0 +1,24 @@
+meta {
+  name: GET list exercises
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/catalog/exercises
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+params:query {
+  q: 
+  equipment: 
+  muscle: 
+  category: 
+  limit: 100
+  offset: 0
+}

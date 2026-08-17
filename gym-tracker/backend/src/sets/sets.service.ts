@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Prisma, WorkoutSet } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../shared/prisma/prisma.service';
 import { CreateSetDto } from './dto/create-set.dto';
 import { CreateSetsDto } from './dto/create-sets.dto';
 import { ListSetsQueryDto } from './dto/list-sets-query.dto';
@@ -64,6 +64,9 @@ export class SetsService {
     const where: Prisma.WorkoutSetWhereInput = {
       userId,
       ...(query.exerciseId ? { exerciseId: query.exerciseId } : {}),
+      ...(query.isBodyweight !== undefined
+        ? { isBodyweight: query.isBodyweight }
+        : {}),
       ...(query.from || query.to
         ? {
             performedAt: {

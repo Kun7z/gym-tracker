@@ -1,0 +1,21 @@
+meta {
+  name: GET exercise history
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/exercises/{{exerciseId}}/history
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+params:query {
+  from: 
+  to: 
+  tz: UTC
+}

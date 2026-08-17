@@ -11,9 +11,9 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
-import type { AuthUser } from '../common/decorators/current-user.decorator';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { CurrentUser } from '../shared/decorators/current-user.decorator';
+import type { AuthUser } from '../shared/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../shared/guards/jwt-auth.guard';
 import { AuthService, REFRESH_COOKIE } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';

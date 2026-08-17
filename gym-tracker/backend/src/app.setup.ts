@@ -2,6 +2,8 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
+import { AllExceptionsFilter } from './shared/filters/all-exceptions.filter';
+import { PrismaExceptionFilter } from './shared/filters/prisma-exception.filter';
 
 export function configureApp(app: INestApplication): void {
   const config = app.get(ConfigService);
@@ -24,4 +26,6 @@ export function configureApp(app: INestApplication): void {
       transform: true,
     }),
   );
+
+  app.useGlobalFilters(new PrismaExceptionFilter(), new AllExceptionsFilter());
 }

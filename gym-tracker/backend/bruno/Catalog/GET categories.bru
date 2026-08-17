@@ -1,0 +1,15 @@
+meta {
+  name: GET categories
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/v1/catalog/categories
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

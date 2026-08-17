@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "Gym Tracker API",
+  "type": "collection",
+  "ignore": ["node_modules", ".git"]
+}

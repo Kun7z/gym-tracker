@@ -5,8 +5,8 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { CatalogModule } from './catalog/catalog.module';
-import { validationSchema } from './config/configuration';
-import { PrismaModule } from './prisma/prisma.module';
+import { validationSchema } from './shared/config/configuration';
+import { PrismaModule } from './shared/prisma/prisma.module';
 import { SetsModule } from './sets/sets.module';
 import { StatsModule } from './stats/stats.module';
 

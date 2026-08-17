@@ -9,7 +9,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../shared/guards/jwt-auth.guard';
 import { CatalogService } from './catalog.service';
 import { CatalogSyncService } from './catalog-sync.service';
 import { CatalogListQueryDto } from './dto/catalog-list-query.dto';

@@ -6,9 +6,9 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import type { AuthUser } from '../common/decorators/current-user.decorator';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import type { AuthUser } from '../shared/decorators/current-user.decorator';
+import { CurrentUser } from '../shared/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../shared/guards/jwt-auth.guard';
 import { HistoryQueryDto } from './dto/history-query.dto';
 import { StatsService } from './stats.service';
 

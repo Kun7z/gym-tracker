@@ -1,0 +1,15 @@
+meta {
+  name: GET muscles
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/v1/catalog/muscles
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

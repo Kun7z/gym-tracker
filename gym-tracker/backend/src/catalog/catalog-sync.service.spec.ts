@@ -1,6 +1,6 @@
 import { ServiceUnavailableException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../shared/prisma/prisma.service';
 import { CatalogSyncService } from './catalog-sync.service';
 import { WgerApiClient } from './wger-api.client';
 import { WgerExerciseInfo } from './wger.types';

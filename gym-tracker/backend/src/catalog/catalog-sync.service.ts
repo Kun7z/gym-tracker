@@ -5,7 +5,7 @@ import {
   OnApplicationBootstrap,
   ServiceUnavailableException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../shared/prisma/prisma.service';
 import { WgerApiClient } from './wger-api.client';
 import {
   WgerCategory,

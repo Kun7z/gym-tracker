@@ -5,7 +5,7 @@ import { App } from 'supertest/types';
 import { WgerApiClient } from './../src/catalog/wger-api.client';
 import { AppModule } from './../src/app.module';
 import { configureApp } from './../src/app.setup';
-import { PrismaService } from './../src/prisma/prisma.service';
+import { PrismaService } from './../src/shared/prisma/prisma.service';
 
 interface SetsResponse {
   body: { sets: { id: string; clientUuid: string }[] };

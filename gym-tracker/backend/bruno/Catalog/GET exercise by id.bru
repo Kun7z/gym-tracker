@@ -1,0 +1,15 @@
+meta {
+  name: GET exercise by id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/v1/catalog/exercises/{{exerciseId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

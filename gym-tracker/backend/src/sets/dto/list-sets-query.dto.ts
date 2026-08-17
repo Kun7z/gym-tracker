@@ -1,5 +1,6 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsInt,
   IsISO8601,
   IsOptional,
@@ -20,6 +21,12 @@ export class ListSetsQueryDto {
   @IsOptional()
   @IsISO8601()
   to?: string;
+
+  @IsOptional()
+  @Transform(({ value }) => (value === '' ? undefined : value))
+  @Type(() => Boolean)
+  @IsBoolean()
+  isBodyweight?: boolean;
 
   @IsOptional()
   @Type(() => Number)

@@ -1,0 +1,15 @@
+meta {
+  name: GET sync status
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/v1/catalog/sync/status
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
