@@ -1,0 +1,63 @@
+<div class="page page--auth">
+  <div class="brand">
+    <span class="brand-dot"></span>
+    <span class="brand-name">Carga</span>
+  </div>
+  <p class="tagline">Crie sua conta para começar.</p>
+
+  <form class="card form-card" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field">
+      <label for="displayName">Nome (opcional)</label>
+      <input
+        id="displayName"
+        class="input"
+        type="text"
+        autocomplete="nickname"
+        placeholder="Seu nome"
+        formControlName="displayName"
+      />
+    </div>
+
+    <div class="field">
+      <label for="email">E-mail</label>
+      <input
+        id="email"
+        class="input"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="voce@email.com"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="field">
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        class="input"
+        type="password"
+        autocomplete="new-password"
+        placeholder="Mínimo de 8 caracteres"
+        formControlName="password"
+      />
+    </div>
+
+    @if (error(); as message) {
+      <div class="form-error">{{ message }}</div>
+    }
+
+    <button
+      class="btn btn-primary btn-block"
+      type="submit"
+      [disabled]="submitting() || form.invalid"
+    >
+      {{ submitting() ? 'Criando conta…' : 'Criar conta' }}
+    </button>
+  </form>
+
+  <p class="switch">
+    Já tem conta?
+    <a routerLink="/login">Entrar</a>
+  </p>
+</div>

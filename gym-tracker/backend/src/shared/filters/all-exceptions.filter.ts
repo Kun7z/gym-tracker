@@ -40,7 +40,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
       const res = exception.getResponse();
 
       if (typeof res === 'string') {
-        return { statusCode, message: res, error: this.statusLabel(statusCode) };
+        return {
+          statusCode,
+          message: res,
+          error: this.statusLabel(statusCode),
+        };
       }
 
       const body = res as { message?: string | string[]; error?: string };

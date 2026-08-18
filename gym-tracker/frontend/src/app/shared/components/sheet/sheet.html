@@ -1,0 +1,6 @@
+<div class="sheet-backdrop" (click)="onBackdrop()"></div>
+
+<section class="sheet" role="dialog" aria-modal="true">
+  <button type="button" class="grabber" aria-label="Fechar" (click)="close.emit()"></button>
+  <ng-content />
+</section>

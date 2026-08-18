@@ -12,14 +12,16 @@ de progressão (carga, volume, e1RM) — sem o conceito de "treino" como unidade
 
 - ✅ **Backend MVP completo** (NestJS + Prisma/PostgreSQL): auth JWT, catálogo
   sincronizado do wger, séries idempotentes offline, histórico/estatísticas
-- ✅ **Catálogo** sincronizado da API pública do wger (sob demanda)
+- ✅ **Catálogo** sincronizado da API pública do wger (sob demanda), nomes em pt-BR (traduções da comunidade + dicionário curado)
 - ✅ 28 testes unitários + 21 e2e verdes; smoke test fim-a-fim com dados reais
-- 🚧 **Frontend Angular** (próximo passo) · 🚧 Deploy
+- ✅ **Frontend Angular** (PWA, dark/light, fluxo de registro, gráfico de progressão)
+- 🚧 Deploy · 🚧 Fila offline (Dexie)
 
 ## Estrutura
 
 ```
 backend/          # API NestJS (auth, catalog, sets, stats)
+frontend/         # PWA Angular (design system dark/light, telas e fluxos)
 infrastructure/   # Docker Compose (Postgres), scripts, README de operação
 ```
 ## Quick start
@@ -30,6 +32,9 @@ docker compose -f infrastructure/docker-compose.yml up -d postgres
 
 # Backend
 cd backend && npm install && npm run start:dev
+
+# Frontend (dev server com proxy para o backend)
+cd frontend && npm install && npm start   # http://localhost:4200
 ```
 
 Verificação: `cd backend && npm run lint && npm test && npm run test:e2e`

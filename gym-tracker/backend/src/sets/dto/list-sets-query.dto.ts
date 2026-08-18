@@ -23,7 +23,9 @@ export class ListSetsQueryDto {
   to?: string;
 
   @IsOptional()
-  @Transform(({ value }) => (value === '' ? undefined : value))
+  @Transform(({ value }: { value: unknown }) =>
+    value === '' ? undefined : value,
+  )
   @Type(() => Boolean)
   @IsBoolean()
   isBodyweight?: boolean;

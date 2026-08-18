@@ -145,13 +145,60 @@ describe('CatalogSyncService', () => {
     expect(result.deleted).toBe(1);
   });
 
-  it('prioriza a tradução pt-BR e guarda o nome em inglês', async () => {
+  it('prioriza a tradução pt-BR e usa o dicionário quando não há', async () => {
     await service.runSync();
 
     expect(exerciseUpserts[0].create.wgerUuid).toBe(exercises[0].uuid);
     expect(exerciseUpserts[0].create.name).toBe('Leg Press');
-    expect(exerciseUpserts[1].create.name).toBe('Leg Extension');
+    // Sem tradução pt-BR no wger → dicionário curado (fallback)
+    expect(exerciseUpserts[1].create.name).toBe('Cadeira extensora');
     expect(exerciseUpserts[1].create.nameEn).toBe('Leg Extension');
+  });
+
+  it('traduz os lookups para pt-BR mantendo o slug do nome original', async () => {
+    await service.runSync();
+
+    expect(prismaMock.equipment.upsert).toHaveBeenCalledWith({
+      where: { id: 1 },
+      update: { name: 'Barra', slug: 'barbell' },
+      create: { id: 1, name: 'Barra', slug: 'barbell' },
+    });
+    expect(prismaMock.muscle.upsert).toHaveBeenCalledWith({
+      where: { id: 1 },
+      update: { name: 'Quadríceps', nameEn: 'Quadriceps', isFront: true },
+      create: {
+        id: 1,
+        name: 'Quadríceps',
+        nameEn: 'Quadriceps',
+        isFront: true,
+      },
+    });
+    expect(prismaMock.exerciseCategory.upsert).toHaveBeenCalledWith({
+      where: { id: 1 },
+      update: { name: 'Pernas', slug: 'legs' },
+      create: { id: 1, name: 'Pernas', slug: 'legs' },
+    });
+  });
+
+  it('mantém o nome original quando não há tradução no dicionário', async () => {
+    const withUnknown = {
+      ...lookupData,
+      '/equipment/': [
+        { id: 1, name: 'Barbell' },
+        { id: 9, name: 'Equipamento novo' },
+      ],
+    } as Record<string, unknown[]>;
+    wgerMock.fetchAll.mockImplementation((path: string) =>
+      Promise.resolve(withUnknown[path]),
+    );
+
+    await service.runSync();
+
+    expect(prismaMock.equipment.upsert).toHaveBeenCalledWith({
+      where: { id: 9 },
+      update: { name: 'Equipamento novo', slug: 'equipamento-novo' },
+      create: { id: 9, name: 'Equipamento novo', slug: 'equipamento-novo' },
+    });
   });
 
   it('conecta exercícios a equipment e muscles existentes', async () => {

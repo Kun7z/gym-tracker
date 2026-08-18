@@ -1,0 +1,40 @@
+<div class="stepper">
+  <button
+    type="button"
+    class="btn-step"
+    aria-label="Diminuir"
+    (pointerdown)="startRepeat(-1)"
+    (pointerup)="stopRepeat()"
+    (pointerleave)="stopRepeat()"
+    (pointercancel)="stopRepeat()"
+    (click)="sub()"
+    [disabled]="value() <= min()"
+  >
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <path d="M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <div class="value-wrap">
+    <span class="value">{{ fmt() }}</span>
+    @if (unit()) {
+      <span class="unit">{{ unit() }}</span>
+    }
+  </div>
+
+  <button
+    type="button"
+    class="btn-step"
+    aria-label="Aumentar"
+    (pointerdown)="startRepeat(1)"
+    (pointerup)="stopRepeat()"
+    (pointerleave)="stopRepeat()"
+    (pointercancel)="stopRepeat()"
+    (click)="add()"
+    [disabled]="value() >= max()"
+  >
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    </svg>
+  </button>
+</div>

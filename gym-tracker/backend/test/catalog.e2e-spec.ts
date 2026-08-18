@@ -145,8 +145,9 @@ describe('Catalog (e2e)', () => {
     expect(res.body.total).toBe(2);
     const names = res.body.items.map((e) => e.name);
     expect(names).toContain('Leg Press');
-    expect(names).toContain('Leg Extension');
-    expect(res.body.items[0].category.name).toBe('Legs');
+    // Sem tradução pt-BR no wger → dicionário curado
+    expect(names).toContain('Cadeira extensora');
+    expect(res.body.items[0].category.name).toBe('Pernas');
   });
 
   it('busca por nome com filtro', async () => {
@@ -155,8 +156,9 @@ describe('Catalog (e2e)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(200)) as ExerciseList;
 
+    // A busca cobre o nome pt-BR (name) e o original (nameEn)
     expect(res.body.total).toBe(1);
-    expect(res.body.items[0].name).toBe('Leg Extension');
+    expect(res.body.items[0].name).toBe('Cadeira extensora');
   });
 
   it('filtra por equipment', async () => {
@@ -187,8 +189,8 @@ describe('Catalog (e2e)', () => {
       muscles: { name: string }[];
     };
     expect(body.name).toBe('Leg Press');
-    expect(body.equipment[0].name).toBe('Leg press machine');
-    expect(body.muscles[0].name).toBe('Quadriceps');
+    expect(body.equipment[0].name).toBe('Máquina de leg press');
+    expect(body.muscles[0].name).toBe('Quadríceps');
   });
 
   it('lista equipment, muscles e categories', async () => {

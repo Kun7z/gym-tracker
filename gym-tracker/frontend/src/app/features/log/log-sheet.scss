@@ -1,0 +1,114 @@
+.sheet-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sheet-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.sheet-sub {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.steppers {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stepper-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stepper-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  padding-left: 4px;
+}
+
+.step-chips {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.step-chip {
+  min-width: 56px;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.12s ease;
+}
+
+.step-chip.active {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary-light);
+}
+
+.bodyweight-row {
+  margin-top: 24px;
+  padding: 0 4px;
+}
+
+.bodyweight-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* Switch */
+.switch {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: background 0.15s ease;
+}
+
+.switch .knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.switch.on {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.switch.on .knob {
+  transform: translateX(22px);
+  background: #fff;
+}
+
+.save-btn {
+  margin-top: 26px;
+}

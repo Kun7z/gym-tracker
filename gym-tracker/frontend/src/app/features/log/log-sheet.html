@@ -1,0 +1,77 @@
+<app-sheet (close)="close.emit()">
+  <div class="sheet-head">
+    <div class="grow">
+      <div class="sheet-title">{{ exerciseName() }}</div>
+      <div class="sheet-sub">Nova série</div>
+    </div>
+    <button type="button" class="btn-icon" (click)="close.emit()" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="steppers">
+    @if (!isBodyweight()) {
+      <div class="stepper-block">
+        <span class="stepper-label">Carga</span>
+        <app-stepper
+          [(value)]="weight"
+          [step]="step()"
+          [min]="0"
+          [max]="2000"
+          unit="kg"
+        />
+        <div class="step-chips">
+          @for (s of steps; track s) {
+            <button
+              type="button"
+              class="step-chip"
+              [class.active]="step() === s"
+              (click)="setStep(s)"
+            >
+              {{ s === 2.5 ? '2,5' : s }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="stepper-block">
+      <span class="stepper-label">Repetições</span>
+      <app-stepper [(value)]="reps" [step]="1" [min]="1" [max]="200" />
+    </div>
+  </div>
+
+  <div class="row-between bodyweight-row">
+    <span class="bodyweight-label">Peso corporal</span>
+    <button
+      type="button"
+      class="switch"
+      [class.on]="isBodyweight()"
+      role="switch"
+      [attr.aria-checked]="isBodyweight()"
+      (click)="toggleBodyweight()"
+    >
+      <span class="knob"></span>
+    </button>
+  </div>
+
+  <button
+    type="button"
+    class="btn btn-primary btn-block save-btn"
+    (click)="save()"
+    [disabled]="saving()"
+  >
+    @if (saving()) {
+      Salvando…
+    } @else if (justSaved()) {
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m4.5 12.5 5 5 10-11" />
+      </svg>
+      Salvo — próxima série
+    } @else {
+      Salvar série
+    }
+  </button>
+</app-sheet>

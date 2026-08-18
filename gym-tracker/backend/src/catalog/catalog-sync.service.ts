@@ -6,6 +6,13 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
+import {
+  CATEGORY_PT,
+  EQUIPMENT_PT,
+  EXERCISE_PT,
+  MUSCLE_PT,
+  normalizeKey,
+} from './pt-br.dictionary';
 import { WgerApiClient } from './wger-api.client';
 import {
   WgerCategory,
@@ -150,28 +157,31 @@ export class CatalogSyncService implements OnApplicationBootstrap {
     };
 
     for (const item of equipment) {
+      // Slug gerado do nome original em inglês para manter URLs/ids estáveis
       const slug = uniqueSlug(item.name);
+      const name = EQUIPMENT_PT[item.name] ?? item.name;
       await this.prisma.equipment.upsert({
         where: { id: item.id },
-        update: { name: item.name, slug },
+        update: { name, slug },
         create: {
           id: item.id,
-          name: item.name,
+          name,
           slug,
         },
       });
     }
     for (const item of muscles) {
+      const name = MUSCLE_PT[item.name] ?? item.name;
       await this.prisma.muscle.upsert({
         where: { id: item.id },
         update: {
-          name: item.name,
+          name,
           nameEn: item.name_en || null,
           isFront: item.is_front,
         },
         create: {
           id: item.id,
-          name: item.name,
+          name,
           nameEn: item.name_en || null,
           isFront: item.is_front,
         },
@@ -179,12 +189,13 @@ export class CatalogSyncService implements OnApplicationBootstrap {
     }
     for (const item of categories) {
       const slug = uniqueSlug(item.name);
+      const name = CATEGORY_PT[item.name] ?? item.name;
       await this.prisma.exerciseCategory.upsert({
         where: { id: item.id },
-        update: { name: item.name, slug },
+        update: { name, slug },
         create: {
           id: item.id,
-          name: item.name,
+          name,
           slug,
         },
       });
@@ -249,7 +260,10 @@ export class CatalogSyncService implements OnApplicationBootstrap {
     const pt = byLang.get('pt');
     const en = byLang.get('en');
     const fallback = translations[0];
-    const name = pt?.name ?? en?.name ?? fallback?.name ?? 'Sem nome';
+    const enName = en?.name ?? fallback?.name ?? '';
+    // 1º tradução da comunidade em pt; 2º dicionário curado; 3º nome original
+    const name =
+      pt?.name ?? EXERCISE_PT[normalizeKey(enName)] ?? enName ?? 'Sem nome';
     const nameEn = en?.name ?? pt?.name ?? fallback?.name ?? name;
     return { name, nameEn };
   }

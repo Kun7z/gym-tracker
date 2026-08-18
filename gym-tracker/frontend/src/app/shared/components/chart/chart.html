@@ -1,0 +1,74 @@
+<div class="chart" #host>
+  @if (view(); as v) {
+    <svg
+      [attr.width]="v.w"
+      [attr.height]="v.h"
+      (pointermove)="onMove($event)"
+      (pointerdown)="onMove($event)"
+      (pointerleave)="clearSelected()"
+      role="img"
+      aria-label="Gráfico de progressão de carga"
+    >
+      @for (tick of v.ticks; track $index) {
+        <line
+          class="grid"
+          [attr.x1]="PAD.left"
+          [attr.x2]="v.w - PAD.right"
+          [attr.y1]="tick.y"
+          [attr.y2]="tick.y"
+        />
+        <text
+          class="ylab"
+          [attr.x]="PAD.left - 6"
+          [attr.y]="tick.y + 3"
+          text-anchor="end"
+        >
+          {{ tick.label }}
+        </text>
+      }
+
+      @for (segment of v.segments; track $index) {
+        <path class="line" [attr.d]="segment.d" />
+      }
+
+      @for (dot of v.dots; track dot.i) {
+        <circle
+          class="dot"
+          [class.pr]="dot.isPr"
+          [class.last]="dot.isLast && !dot.isPr"
+          [attr.cx]="dot.x"
+          [attr.cy]="dot.y"
+          [attr.r]="dot.isPr ? 5 : 3.5"
+        />
+      }
+
+      <text class="xlab" [attr.x]="0" [attr.y]="v.h - 8" text-anchor="start">
+        {{ shortDate(v.xLabels[0]) }}
+      </text>
+      <text
+        class="xlab"
+        [attr.x]="v.w"
+        [attr.y]="v.h - 8"
+        text-anchor="end"
+      >
+        {{ shortDate(v.xLabels[1]) }}
+      </text>
+    </svg>
+
+    @if (selectedDot(); as sd) {
+      <div
+        class="tooltip"
+        [style.left.%]="sd.leftPct"
+        [style.top.%]="sd.topPct"
+      >
+        <span class="tt-date">{{ sd.date }}</span>
+        <span class="tt-value">{{ sd.value }} kg</span>
+        @if (sd.setsCount > 1) {
+          <span class="tt-sets">{{ sd.setsCount }} séries</span>
+        }
+      </div>
+    }
+  } @else {
+    <div class="chart-empty">Sem dados suficientes ainda</div>
+  }
+</div>

@@ -1,0 +1,256 @@
+.detail-page {
+  padding-top: 6px;
+}
+
+.ex-meta {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  min-height: 84px;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.stat-value strong {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-value small {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.stat-value.stat-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+.record-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-secondary-soft);
+  color: var(--color-secondary-light);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Chart */
+.chart-card {
+  padding: 16px 12px 12px;
+  margin-bottom: 22px;
+}
+
+.chart-head {
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.metric-toggle {
+  display: flex;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+
+.metric-btn {
+  min-height: 30px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  transition: all 0.15s ease;
+}
+
+.metric-btn.active {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+/* Histórico */
+.history {
+  margin-top: 2px;
+}
+
+.section-title {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.day-group {
+  margin-bottom: 16px;
+}
+
+.day-head {
+  padding: 0 4px 6px;
+}
+
+.day-label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.day-count {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.day-card {
+  padding: 2px 14px;
+}
+
+.set-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.set-row:last-child {
+  border-bottom: 0;
+}
+
+.set-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.set-weight {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.set-weight strong {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--color-primary-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.set-weight small {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.bodyweight-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-secondary-light);
+  background: var(--color-secondary-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.set-reps {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.set-rpe {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.set-notes {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.set-time {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-muted);
+}
+
+.delete-btn.confirming {
+  width: auto;
+  padding: 0 12px;
+  background: var(--color-danger);
+  color: #fff;
+  border-radius: var(--radius-pill);
+}
+
+.confirm-text {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Skeletons / erros */
+.skeleton-title {
+  height: 28px;
+  width: 55%;
+  margin: 6px 0 8px;
+}
+
+.error-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.error-card p {
+  margin: 0;
+}
